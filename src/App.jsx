@@ -5,6 +5,7 @@ import Home from "../src/pages/Home";
 import NotFound from "./pages/NotFound";
 import User from "./pages/User";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { HOME, USER } from "./utils/ROUTES";
 function App() {
   return (
     <Sheet sx={{ height: "100vh" }} variant="solid">
@@ -33,9 +34,9 @@ function App() {
           {/* React router */}
           <Router>
             <Routes>
-              <Route path="/" element={<Home />} />
+              <Route path={HOME} element={<Home />} />
               <Route path="*" element={<NotFound />} />
-              <Route path="/user/:id" element={<User />} />
+              <Route path={USER + ":id"} element={<User />} />
             </Routes>
           </Router>
         </CssVarsProvider>

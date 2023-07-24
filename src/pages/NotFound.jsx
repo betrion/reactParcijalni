@@ -2,6 +2,7 @@ import { Sheet, Typography } from "@mui/joy";
 import { Link as RouterLink } from "react-router-dom";
 import { Link } from "@mui/joy";
 import SentimentVeryDissatisfiedIcon from "@mui/icons-material/SentimentVeryDissatisfied";
+import { HOME } from "../utils/ROUTES";
 export const NotFound = () => {
   return (
     <Sheet
@@ -27,7 +28,7 @@ export const NotFound = () => {
       <Typography level="h6" sx={{}}>
         Did you get the correct URL?
       </Typography>
-      <Link component={RouterLink} to="/">
+      <Link component={RouterLink} to={HOME}>
         Back to home
       </Link>
     </Sheet>

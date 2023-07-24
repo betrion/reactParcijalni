@@ -5,6 +5,7 @@ import IconButton from "@mui/joy/IconButton";
 import Typography from "@mui/joy/Typography";
 import { Avatar, Link } from "@mui/joy";
 import { Link as RouterLink } from "react-router-dom";
+import { USER } from "../utils/ROUTES";
 
 export default function BasicCard() {
   return (
@@ -40,7 +41,7 @@ export default function BasicCard() {
         </div>
         <Link
           component={RouterLink}
-          to="/user/1"
+          to={USER + "ID"}
           sx={{ ml: "auto", fontWeight: 600 }}
         >
           <Button variant="solid" size="sm" color="info">
