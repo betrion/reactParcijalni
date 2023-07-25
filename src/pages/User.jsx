@@ -15,18 +15,39 @@ import { Link as RouterLink } from "react-router-dom";
 import { HOME } from "../utils/ROUTES";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { getUser } from "../redux/GithubSlice";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import { getRepos, getUser } from "../redux/GithubSlice";
+import RepoList from "../components/RepoList";
 
 function User() {
   const dispatch = useDispatch();
   const requestedUser = useSelector((state) => state.github.request);
   const displayUser = useSelector((state) => state.github.user);
+  const displayRepos = useSelector((state) => state.github.repos);
+  const clearSearch = () => {
+    dispatch(getUser({}));
+    dispatch(getRepos([]));
+  };
+  //set user data
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch("../../../src/sample/mojombo.json");
+      const response = await fetch(
+        `https://api.github.com/users/${requestedUser}`,
+      );
       const data = await response.json();
       dispatch(getUser(data));
+    };
+    fetchData().catch((err) => {
+      console.log(err);
+    });
+  }, []);
+  //set user repos
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch(
+        `https://api.github.com/users/${requestedUser}/repos`,
+      );
+      const data = await response.json();
+      dispatch(getRepos(data));
     };
     fetchData().catch((err) => {
       console.log(err);
@@ -55,7 +76,7 @@ function User() {
         sx={{
           width: "100%",
           position: "relative",
-          overflow: { xs: "auto", sm: "initial" },
+          overflow: { xs: "hidden", sm: "initial" },
         }}
       >
         <Box
@@ -68,6 +89,7 @@ function User() {
             bottom: "-24px",
           }}
         />
+
         <Card
           orientation="horizontal"
           sx={{
@@ -108,8 +130,8 @@ function User() {
               sx={{
                 bgcolor: "background.level1",
                 borderRadius: "sm",
-                p: 1.5,
-                my: 1.5,
+                p: 2.5,
+                my: 2.5,
                 display: "flex",
                 gap: 2,
                 "& > div": { flex: 1 },
@@ -140,8 +162,14 @@ function User() {
                 </Typography>
               </div>
             </Sheet>
-            <Box sx={{ display: "flex", gap: 1.5, "& > button": { flex: 1 } }}>
-              <Button variant="solid" color="info">
+            <Box
+              sx={{
+                display: "flex",
+                gap: 1.5,
+                "& > button": { flex: 1, mt: 5.5 },
+              }}
+            >
+              <Button variant="solid" color="info" size="lg">
                 Visit
               </Button>
             </Box>
@@ -151,24 +179,30 @@ function User() {
 
       <Divider orientation="horizontal" sx={{ my: 2 }} />
 
-      <Stack
-        direction={{ xs: "column", sm: "row" }}
-        gap={2}
-        alignItems="center"
-        justifyContent={"space-evenly"}
-        flexWrap={"wrap"}
-      ></Stack>
-      <Link component={RouterLink} to={HOME}>
+      <Sheet
+        sx={{
+          display: "flex",
+          gap: 4,
+          flexWrap: "wrap",
+          justifyContent: "center",
+          mx: 2,
+        }}
+      >
         {" "}
-        <Button
-          sx={{ mt: 1, width: 200, alignSelf: "center", pt: 1 }}
-          variant="solid"
-          color="info"
-          size="lg"
-        >
-          <ArrowBack /> Nazad na pretraživanje
-        </Button>
-      </Link>
+        <Link component={RouterLink} to={HOME}>
+          {" "}
+          <Button
+            sx={{ mt: 1, width: 200, alignSelf: "flex-start", pt: 1 }}
+            variant="solid"
+            color="info"
+            size="lg"
+            onClick={clearSearch}
+          >
+            <ArrowBack /> Nazad na pretraživanje
+          </Button>
+        </Link>
+        <RepoList />
+      </Sheet>
     </Sheet>
   );
 }

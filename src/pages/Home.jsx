@@ -10,6 +10,7 @@ import {
 } from "@mui/joy";
 import SearchIcon from "@mui/icons-material/Search";
 import UserList from "../components/UserList";
+import SearchInput from "../components/SearchInput";
 
 function Home() {
   return (
@@ -29,26 +30,7 @@ function Home() {
         boxShadow: "md",
       }}
     >
-      <Typography level="h1" sx={{}}>
-        Github tražilica
-      </Typography>
-      <FormControl>
-        <FormLabel>Unesite ime korisnika</FormLabel>
-        <Input
-          name="search"
-          type="search"
-          placeholder="npr. Facebook, Redux.."
-          color="info"
-        />
-      </FormControl>
-      <Button
-        sx={{ mt: 1, width: 100, alignSelf: "center", pt: 1 }}
-        variant="solid"
-        color="info"
-        size="lg"
-      >
-        <SearchIcon /> Pretraži
-      </Button>
+      <SearchInput />
 
       <Divider orientation="horizontal" sx={{ my: 2 }} />
 
