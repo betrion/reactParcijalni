@@ -169,9 +169,16 @@ function User() {
                 "& > button": { flex: 1, mt: 5.5 },
               }}
             >
-              <Button variant="solid" color="info" size="lg">
-                Visit
-              </Button>
+              <Link href={displayUser.html_url} sx={{ width: "100%" }}>
+                <Button
+                  variant="solid"
+                  color="info"
+                  size="lg"
+                  sx={{ width: "100%" }}
+                >
+                  Visit
+                </Button>
+              </Link>
             </Box>
           </CardContent>
         </Card>
