@@ -6,26 +6,26 @@ import Typography from "@mui/joy/Typography";
 import { Avatar, Link } from "@mui/joy";
 import { Link as RouterLink } from "react-router-dom";
 import { USER } from "../utils/ROUTES";
+import { useDispatch } from "react-redux";
+import { getRequests, getUser } from "../redux/GithubSlice";
 
-export default function BasicCard() {
+export default function BasicCard({ user }) {
+  const { login, avatar_url, html_url, id } = user;
+  const dispatch = useDispatch();
   return (
     <Card variant="outlined" color="info" sx={{ width: 220 }}>
       <CardContent sx={{ alignItems: "center", textAlign: "center" }}>
-        <Link href="/sign-up">
-          <Avatar
-            src="https://avatars.githubusercontent.com/u/13142323?v=4"
-            sx={{ "--Avatar-size": "4rem" }}
-          />
+        <Link href={html_url}>
+          <Avatar src={avatar_url} sx={{ "--Avatar-size": "4rem" }} />
         </Link>
         <Typography level="h1" fontSize="md" sx={{ mb: 0.5 }}>
-          avatar_url
+          {login}
         </Typography>
         <Typography level="body3" variant="soft" sx={{ borderRadius: "sm" }}>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam odio
           explicabo quis quo ipsum perspiciatis itaque animi ad beatae corporis?
         </Typography>
         <IconButton
-          aria-label="bookmark Bahamas Islands"
           variant="plain"
           color="neutral"
           size="sm"
@@ -41,10 +41,15 @@ export default function BasicCard() {
         </div>
         <Link
           component={RouterLink}
-          to={USER + "ID"}
+          to={USER + login}
           sx={{ ml: "auto", fontWeight: 600 }}
         >
-          <Button variant="solid" size="sm" color="info">
+          <Button
+            variant="solid"
+            size="sm"
+            color="info"
+            onClick={() => dispatch(getRequests(login))}
+          >
             Explore
           </Button>
         </Link>

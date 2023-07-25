@@ -6,6 +6,7 @@ import NotFound from "./pages/NotFound";
 import User from "./pages/User";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { HOME, USER } from "./utils/ROUTES";
+import UserList from "./components/UserList";
 function App() {
   return (
     <Sheet sx={{ height: "100vh" }} variant="solid">
@@ -34,7 +35,7 @@ function App() {
           {/* React router */}
           <Router>
             <Routes>
-              <Route path={HOME} element={<Home />} />
+              <Route path={HOME} element={<Home />}></Route>
               <Route path="*" element={<NotFound />} />
               <Route path={USER + ":id"} element={<User />} />
             </Routes>

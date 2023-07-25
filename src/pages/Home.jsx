@@ -9,7 +9,8 @@ import {
   Stack,
 } from "@mui/joy";
 import SearchIcon from "@mui/icons-material/Search";
-import UserCard from "../components/UserCard";
+import UserList from "../components/UserList";
+
 function Home() {
   return (
     <Sheet
@@ -58,10 +59,7 @@ function Home() {
         justifyContent={"space-evenly"}
         flexWrap={"wrap"}
       >
-        <UserCard />
-        <UserCard />
-        <UserCard />
-        <UserCard />
+        <UserList />
       </Stack>
     </Sheet>
   );
